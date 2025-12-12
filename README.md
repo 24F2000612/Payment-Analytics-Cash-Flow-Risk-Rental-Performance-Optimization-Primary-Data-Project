@@ -1,4 +1,4 @@
-📊 Payment Analytics, Cash-Flow Risk & Rental Performance Optimization — Primary Data Project
+ Payment Analytics, Cash-Flow Risk & Rental Performance Optimization — Primary Data Project
 BDM Capstone Project | IIT Madras BS Degree
 
 Author: Udghosh Rao
