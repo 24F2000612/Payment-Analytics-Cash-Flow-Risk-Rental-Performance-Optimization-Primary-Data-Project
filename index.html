@@ -2,28 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Payment Analytics & Rental Performance Optimization</title>
+  <title>Payment Analytics & Rental Performance Optimization | BDM Capstone</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- =====================
-       ADVANCED MODERN STYLES
+       ADVANCED PORTFOLIO UI
        ===================== -->
   <style>
     :root {
-      --primary: #2563eb;      /* blue-600 */
-      --secondary: #1e293b;    /* slate-800 */
-      --accent: #22c55e;       /* green-500 */
-      --danger: #ef4444;       /* red-500 */
-      --bg: #f8fafc;           /* slate-50 */
-      --card-bg: #ffffff;
-      --text: #0f172a;         /* slate-900 */
-      --muted: #64748b;        /* slate-500 */
+      --primary: #1e40af;     /* blue */
+      --secondary: #0f172a;   /* dark */
+      --accent: #22c55e;      /* green */
+      --warning: #f97316;     /* orange */
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #020617;
+      --muted: #64748b;
       --radius: 14px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -33,30 +31,18 @@
       line-height: 1.75;
     }
 
-    /* =====================
-       HERO SECTION
-       ===================== */
+    /* ===== HEADER ===== */
     header {
-      background: radial-gradient(circle at top left, #2563eb, #1e293b);
-      color: #ffffff;
+      background: radial-gradient(circle at top left, var(--primary), var(--secondary));
+      color: #fff;
       padding: 90px 20px 80px;
       text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    header::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.08));
     }
 
     header h1 {
-      margin: 0 0 14px;
-      font-size: clamp(28px, 4vw, 40px);
+      margin: 0 0 12px;
+      font-size: clamp(28px, 4vw, 42px);
       font-weight: 800;
-      letter-spacing: -0.5px;
     }
 
     header p {
@@ -65,117 +51,42 @@
       opacity: 0.95;
     }
 
-    /* =====================
-       LAYOUT
-       ===================== */
+    /* ===== LAYOUT ===== */
     main {
       max-width: 1150px;
       margin: auto;
-      padding: 50px 20px;
+      padding: 60px 20px;
     }
 
-    section {
-      margin-bottom: 60px;
-    }
+    section { margin-bottom: 70px; }
 
-    section h2 {
+    h2 {
       font-size: 22px;
-      margin-bottom: 14px;
       color: var(--secondary);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      margin-bottom: 16px;
       position: relative;
     }
 
-    section h2::after {
+    h2::after {
       content: "";
-      position: absolute;
-      bottom: -6px;
-      left: 0;
-      width: 50%;
-      height: 3px;
+      display: block;
+      width: 70px;
+      height: 4px;
       background: linear-gradient(90deg, var(--primary), var(--accent));
-      border-radius: 3px;
+      margin-top: 6px;
+      border-radius: 2px;
     }
 
-    p {
-      max-width: 900px;
-      color: var(--text);
-    }
+    p { max-width: 950px; }
 
-    /* =====================
-       INFO GRID / CARDS
-       ===================== */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
-      margin-top: 28px;
-    }
+    ul { padding-left: 22px; }
+    li { margin-bottom: 10px; }
 
-    .card {
-      background: linear-gradient(180deg, #ffffff, #f8fafc);
-      border-radius: var(--radius);
-      padding: 26px;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      position: relative;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background: linear-gradient(135deg, transparent, rgba(37,99,235,0.08));
-      opacity: 0;
-      transition: opacity 0.25s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
-    }
-
-    .card:hover::before {
-      opacity: 1;
-    }
-
-    .card h3 {
-      margin-top: 0;
-      margin-bottom: 10px;
-      font-size: 18px;
-      color: var(--primary);
-    }
-
-    /* =====================
-       LISTS & CALLOUTS
-       ===================== */
-    ul {
-      padding-left: 22px;
-    }
-
-    li {
-      margin-bottom: 10px;
-    }
-
-    .highlight {
-      background: linear-gradient(135deg, #ffffff, #eef2ff);
-      border-left: 6px solid var(--primary);
-      padding: 26px;
-      border-radius: var(--radius);
-      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
-      max-width: 900px;
-    }
-
-    /* =====================
-       METRIC BADGES
-       ===================== */
+    /* ===== BADGES ===== */
     .badges {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 10px;
       margin-top: 14px;
     }
 
@@ -188,9 +99,43 @@
       font-weight: 600;
     }
 
-    /* =====================
-       LINKS / CTA BUTTONS
-       ===================== */
+    /* ===== CARDS ===== */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 26px;
+      margin-top: 26px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: 0 12px 30px rgba(2, 6, 23, 0.1);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 42px rgba(2, 6, 23, 0.14);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 18px;
+      color: var(--primary);
+    }
+
+    /* ===== HIGHLIGHT ===== */
+    .highlight {
+      background: linear-gradient(135deg, #ffffff, #eef2ff);
+      border-left: 6px solid var(--primary);
+      padding: 28px;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 28px rgba(2, 6, 23, 0.1);
+    }
+
+    /* ===== LINKS / CTA ===== */
     .links {
       display: flex;
       flex-wrap: wrap;
@@ -201,42 +146,32 @@
     .links a {
       text-decoration: none;
       background: linear-gradient(135deg, var(--primary), #1d4ed8);
-      color: #ffffff;
+      color: #fff;
       padding: 12px 20px;
       border-radius: 10px;
       font-size: 14px;
       font-weight: 600;
-      box-shadow: 0 8px 20px rgba(37,99,235,0.35);
+      box-shadow: 0 8px 20px rgba(37,99,235,0.4);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .links a:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(37,99,235,0.45);
+      box-shadow: 0 12px 30px rgba(37,99,235,0.55);
     }
 
-    /* =====================
-       FOOTER
-       ===================== */
+    /* ===== FOOTER ===== */
     footer {
-      background: linear-gradient(135deg, #1e293b, #020617);
-      color: #ffffff;
+      background: linear-gradient(135deg, #020617, #1e293b);
+      color: #fff;
       text-align: center;
-      padding: 26px 16px;
+      padding: 28px 16px;
       font-size: 14px;
     }
 
-    /* =====================
-       RESPONSIVE
-       ===================== */
     @media (max-width: 600px) {
-      header {
-        padding: 70px 16px;
-      }
-
-      section h2 {
-        font-size: 20px;
-      }
+      header { padding: 70px 16px; }
+      h2 { font-size: 20px; }
     }
   </style>
 </head>
@@ -245,48 +180,66 @@
 
 <header>
   <h1>Payment Analytics, Cash-Flow Risk & Rental Performance Optimization</h1>
-  <p>Primary Data Project | BDM Capstone<br>IIT Madras BS Degree Program</p>
+  <p>Primary Data BDM Capstone Project<br>IIT Madras – BS Degree Program</p>
 </header>
 
 <main>
 
   <section>
-    <h2>👤 Project Owner</h2>
-    <p><strong>Udghosh Rao</strong><br>Email: 24f2000612@ds.study.iitm.ac.in</p>
+    <h2>👤 Project Information</h2>
+    <p>
+      <strong>Name:</strong> Udghosh Rao<br>
+      <strong>Roll No:</strong> 24f2000612<br>
+      <strong>Email:</strong> 24f2000612@ds.study.iitm.ac.in<br>
+      <strong>Project Type:</strong> Primary Data Business Analytics
+    </p>
     <div class="badges">
+      <span class="badge">BDM Capstone</span>
+      <span class="badge">Excel Analytics</span>
       <span class="badge">Primary Data</span>
-      <span class="badge">Business Analytics</span>
-      <span class="badge">Capstone Project</span>
+      <span class="badge">IIT Madras</span>
     </div>
   </section>
 
   <section>
-    <h2>🏢 Business Context</h2>
+    <h2>🏢 Organization Background</h2>
     <p>
-      The project was conducted for <strong>Power Tech Project Associates</strong>, a generator
-      sales, rental, and repair firm based in Neemrana, Rajasthan. Operations span both B2B and B2C
-      segments with largely manual financial tracking.
+      Power Tech Project Associates is a generator sales, rental, and repair business located in
+      Neemrana, Rajasthan. The business operates mainly in the B2B segment and depends on manual
+      records for tracking sales, rentals, and payments.
     </p>
-  </section>
-
-  <section>
-    <h2>🎯 Project Objectives</h2>
     <ul>
-      <li>Study customer payment behavior and delays</li>
-      <li>Assess cash-flow exposure from receivables</li>
-      <li>Analyze rental generator utilization</li>
-      <li>Classify customers by payment risk</li>
-      <li>Recommend practical operational improvements</li>
+      <li>Generator Sales (5 KVA – 1000 KVA)</li>
+      <li>Generator Rentals (industrial & event-based)</li>
+      <li>Repairs and maintenance services</li>
     </ul>
   </section>
 
   <section>
-    <h2>📊 Dataset Overview</h2>
+    <h2>🎯 Problem Statement</h2>
+    <ul>
+      <li>Delayed payments in high-value generator sales</li>
+      <li>Lack of structured system to track pending dues</li>
+      <li>Underutilization of rental generators</li>
+      <li>High dependency on a limited number of customers</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>📊 Data & Methodology</h2>
     <div class="cards">
-      <div class="card"><h3>Data Type</h3><p>Primary business transactions</p></div>
-      <div class="card"><h3>Time Period</h3><p>Jan 2025 – May 2025</p></div>
-      <div class="card"><h3>Observations</h3><p>50 verified records</p></div>
-      <div class="card"><h3>Service Lines</h3><p>Sales, Rentals, Repairs</p></div>
+      <div class="card">
+        <h3>Dataset</h3>
+        <p>Jan–May 2025<br>50 real transactions<br>Primary business data</p>
+      </div>
+      <div class="card">
+        <h3>Variables</h3>
+        <p>Date, Customer, Service Type,<br>Amount, Payment Status, Delay Days</p>
+      </div>
+      <div class="card">
+        <h3>Tools Used</h3>
+        <p>Microsoft Excel<br>Descriptive Statistics<br>Correlation & Charts</p>
+      </div>
     </div>
   </section>
 
@@ -294,51 +247,48 @@
     <h2>🔍 Key Findings</h2>
     <div class="highlight">
       <ul>
-        <li>Nearly 40% of revenue was locked in pending payments</li>
-        <li>Sales accounted for ~96% of revenue with maximum delay risk</li>
-        <li>Customer concentration risk due to dependency on 5 clients</li>
-        <li>Higher invoice values correlated with longer delays</li>
-        <li>Rental assets showed consistent underutilization</li>
+        <li>Total revenue: ₹47.9 Lakhs (Jan–May 2025)</li>
+        <li>Pending payments: ₹18.3 Lakhs (~40%)</li>
+        <li>Sales contribute ~96% of revenue but face maximum delays</li>
+        <li>Repairs show fastest payment collection</li>
+        <li>Rental generators are significantly underutilized</li>
       </ul>
     </div>
   </section>
 
   <section>
-    <h2>🧠 Tools & Methods</h2>
+    <h2>👥 Customer Risk Analysis</h2>
     <ul>
-      <li>Microsoft Excel (primary analysis tool)</li>
-      <li>Data cleaning and validation</li>
-      <li>Descriptive and correlation analysis</li>
-      <li>Visualization and customer segmentation</li>
+      <li>Only 5 customers account for the entire revenue</li>
+      <li>2 customers fall under high / very high risk category</li>
+      <li>High-value invoices show longer payment delays</li>
     </ul>
   </section>
 
   <section>
-    <h2>💡 Business Recommendations</h2>
+    <h2>💡 Recommendations</h2>
     <ul>
-      <li>Introduce advance payments for high-value invoices</li>
-      <li>Define customer-wise credit ceilings</li>
-      <li>Reduce revenue concentration by expanding customer base</li>
-      <li>Boost rental utilization through bundled pricing</li>
-      <li>Adopt lightweight digital payment tracking systems</li>
+      <li>Introduce tiered advance payment policy for sales</li>
+      <li>Set customer-wise credit limits</li>
+      <li>Diversify customer base to reduce concentration risk</li>
+      <li>Improve rental utilization using packages and promotions</li>
+      <li>Use simple digital tracking for payments</li>
     </ul>
   </section>
 
-  <section>
+  <section class="links">
     <h2>📁 Project Resources</h2>
-    <div class="links">
-      <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project" target="_blank">GitHub Repository</a>
-      <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project/blob/main/reports/Proposal.pdf" target="_blank">Proposal</a>
-      <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project/blob/main/reports/Midterm_Report.pdf" target="_blank">Mid-Term Report</a>
-      <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project/blob/main/reports/Final_Report.pdf" target="_blank">Final Report</a>
-      <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project/blob/main/presentation/Presentation.pptx" target="_blank">Presentation</a>
-    </div>
+    <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project" target="_blank">GitHub Repository</a>
+    <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project/blob/main/reports/Proposal.pdf" target="_blank">Proposal Report</a>
+    <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project/blob/main/reports/Midterm_Report.pdf" target="_blank">Mid-Term Report</a>
+    <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project/blob/main/reports/Final_Report.pdf" target="_blank">Final Report</a>
+    <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project/blob/main/presentation/Presentation.pptx" target="_blank">Presentation (PPT)</a>
   </section>
 
 </main>
 
 <footer>
-  © 2025 Udghosh Rao | BDM Capstone Project
+  © 2025 Udghosh Rao | BDM Capstone Project – IIT Madras
 </footer>
 
 </body>
