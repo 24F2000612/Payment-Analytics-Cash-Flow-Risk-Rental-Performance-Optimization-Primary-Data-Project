@@ -1,59 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Payment Analytics & Rental Performance Optimization | BDM Capstone</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Payment Analytics Dashboard | IIT Madras BDM Capstone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- =====================
-       ADVANCED PORTFOLIO UI
-       ===================== -->
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <style>
     :root {
-      --primary: #1e40af;     /* blue */
-      --secondary: #0f172a;   /* dark */
-      --accent: #22c55e;      /* green */
-      --warning: #f97316;     /* orange */
-      --bg: #f8fafc;
+      --primary: #2563eb;
+      --secondary: #0f172a;
+      --accent: #22c55e;
+      --danger: #ef4444;
+      --bg: #f1f5f9;
       --card: #ffffff;
       --text: #020617;
       --muted: #64748b;
-      --radius: 14px;
+      --radius: 16px;
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
-      background: linear-gradient(180deg, #f8fafc, #eef2ff);
+      font-family: "Inter", "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
       color: var(--text);
-      line-height: 1.75;
     }
 
-    /* ===== HEADER ===== */
     header {
-      background: radial-gradient(circle at top left, var(--primary), var(--secondary));
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
       color: #fff;
-      padding: 90px 20px 80px;
+      padding: 90px 20px;
       text-align: center;
     }
 
     header h1 {
-      margin: 0 0 12px;
-      font-size: clamp(28px, 4vw, 42px);
+      font-size: clamp(30px, 4vw, 46px);
+      margin-bottom: 10px;
       font-weight: 800;
     }
 
-    header p {
-      margin: 0;
-      font-size: 16px;
-      opacity: 0.95;
-    }
+    header p { opacity: 0.95; }
 
-    /* ===== LAYOUT ===== */
     main {
-      max-width: 1150px;
+      max-width: 1200px;
       margin: auto;
       padding: 60px 20px;
     }
@@ -61,117 +54,95 @@
     section { margin-bottom: 70px; }
 
     h2 {
-      font-size: 22px;
-      color: var(--secondary);
-      margin-bottom: 16px;
+      font-size: 24px;
+      margin-bottom: 20px;
       position: relative;
     }
 
     h2::after {
       content: "";
       display: block;
-      width: 70px;
+      width: 80px;
       height: 4px;
       background: linear-gradient(90deg, var(--primary), var(--accent));
       margin-top: 6px;
       border-radius: 2px;
     }
 
-    p { max-width: 950px; }
-
-    ul { padding-left: 22px; }
-    li { margin-bottom: 10px; }
-
-    /* ===== BADGES ===== */
-    .badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .badge {
-      background: #eef2ff;
-      color: var(--secondary);
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    /* ===== CARDS ===== */
-    .cards {
+    /* KPI cards */
+    .kpis {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 26px;
-      margin-top: 26px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    .kpi {
+      background: var(--card);
+      padding: 26px;
+      border-radius: var(--radius);
+      box-shadow: 0 14px 34px rgba(2,6,23,0.1);
+    }
+
+    .kpi h3 {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .kpi p {
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .green { color: var(--accent); }
+    .red { color: var(--danger); }
+
+    /* Charts */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
     }
 
     .card {
       background: var(--card);
-      border-radius: var(--radius);
       padding: 28px;
-      box-shadow: 0 12px 30px rgba(2, 6, 23, 0.1);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 18px 42px rgba(2, 6, 23, 0.14);
+      border-radius: var(--radius);
+      box-shadow: 0 14px 34px rgba(2,6,23,0.1);
     }
 
     .card h3 {
       margin-top: 0;
-      font-size: 18px;
       color: var(--primary);
+      margin-bottom: 14px;
     }
 
-    /* ===== HIGHLIGHT ===== */
-    .highlight {
-      background: linear-gradient(135deg, #ffffff, #eef2ff);
-      border-left: 6px solid var(--primary);
-      padding: 28px;
-      border-radius: var(--radius);
-      box-shadow: 0 10px 28px rgba(2, 6, 23, 0.1);
-    }
+    ul { padding-left: 22px; }
+    li { margin-bottom: 10px; }
 
-    /* ===== LINKS / CTA ===== */
     .links {
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
-      margin-top: 20px;
     }
 
     .links a {
-      text-decoration: none;
       background: linear-gradient(135deg, var(--primary), #1d4ed8);
       color: #fff;
       padding: 12px 20px;
       border-radius: 10px;
-      font-size: 14px;
+      text-decoration: none;
       font-weight: 600;
-      box-shadow: 0 8px 20px rgba(37,99,235,0.4);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 10px 24px rgba(37,99,235,0.45);
     }
 
-    .links a:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(37,99,235,0.55);
-    }
-
-    /* ===== FOOTER ===== */
     footer {
-      background: linear-gradient(135deg, #020617, #1e293b);
+      background: var(--secondary);
       color: #fff;
       text-align: center;
-      padding: 28px 16px;
+      padding: 28px;
       font-size: 14px;
-    }
-
-    @media (max-width: 600px) {
-      header { padding: 70px 16px; }
-      h2 { font-size: 20px; }
     }
   </style>
 </head>
@@ -179,117 +150,152 @@
 <body>
 
 <header>
-  <h1>Payment Analytics, Cash-Flow Risk & Rental Performance Optimization</h1>
-  <p>Primary Data BDM Capstone Project<br>IIT Madras – BS Degree Program</p>
+  <h1>Payment Analytics & Rental Performance Dashboard</h1>
+  <p>Primary Data BDM Capstone Project | IIT Madras BS Degree Program</p>
 </header>
 
 <main>
 
+  <!-- KPI SUMMARY -->
   <section>
-    <h2>👤 Project Information</h2>
-    <p>
-      <strong>Name:</strong> Udghosh Rao<br>
-      <strong>Roll No:</strong> 24f2000612<br>
-      <strong>Email:</strong> 24f2000612@ds.study.iitm.ac.in<br>
-      <strong>Project Type:</strong> Primary Data Business Analytics
-    </p>
-    <div class="badges">
-      <span class="badge">BDM Capstone</span>
-      <span class="badge">Excel Analytics</span>
-      <span class="badge">Primary Data</span>
-      <span class="badge">IIT Madras</span>
-    </div>
-  </section>
-
-  <section>
-    <h2>🏢 Organization Background</h2>
-    <p>
-      Power Tech Project Associates is a generator sales, rental, and repair business located in
-      Neemrana, Rajasthan. The business operates mainly in the B2B segment and depends on manual
-      records for tracking sales, rentals, and payments.
-    </p>
-    <ul>
-      <li>Generator Sales (5 KVA – 1000 KVA)</li>
-      <li>Generator Rentals (industrial & event-based)</li>
-      <li>Repairs and maintenance services</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>🎯 Problem Statement</h2>
-    <ul>
-      <li>Delayed payments in high-value generator sales</li>
-      <li>Lack of structured system to track pending dues</li>
-      <li>Underutilization of rental generators</li>
-      <li>High dependency on a limited number of customers</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>📊 Data & Methodology</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Dataset</h3>
-        <p>Jan–May 2025<br>50 real transactions<br>Primary business data</p>
+    <h2>📌 Business Snapshot</h2>
+    <div class="kpis">
+      <div class="kpi">
+        <h3>Total Revenue</h3>
+        <p class="green">₹47.9 Lakhs</p>
       </div>
-      <div class="card">
-        <h3>Variables</h3>
-        <p>Date, Customer, Service Type,<br>Amount, Payment Status, Delay Days</p>
+      <div class="kpi">
+        <h3>Pending Payments</h3>
+        <p class="red">₹18.3 Lakhs</p>
       </div>
-      <div class="card">
-        <h3>Tools Used</h3>
-        <p>Microsoft Excel<br>Descriptive Statistics<br>Correlation & Charts</p>
+      <div class="kpi">
+        <h3>Collection Rate</h3>
+        <p>60%</p>
+      </div>
+      <div class="kpi">
+        <h3>Rental Revenue Share</h3>
+        <p>3.4%</p>
       </div>
     </div>
   </section>
 
+  <!-- CHARTS -->
   <section>
-    <h2>🔍 Key Findings</h2>
-    <div class="highlight">
-      <ul>
-        <li>Total revenue: ₹47.9 Lakhs (Jan–May 2025)</li>
-        <li>Pending payments: ₹18.3 Lakhs (~40%)</li>
-        <li>Sales contribute ~96% of revenue but face maximum delays</li>
-        <li>Repairs show fastest payment collection</li>
-        <li>Rental generators are significantly underutilized</li>
-      </ul>
+    <h2>📊 Visual Analysis</h2>
+    <div class="grid">
+
+      <div class="card">
+        <h3>Payment Status</h3>
+        <canvas id="paymentChart"></canvas>
+      </div>
+
+      <div class="card">
+        <h3>Revenue by Service Type</h3>
+        <canvas id="serviceChart"></canvas>
+      </div>
+
+      <div class="card">
+        <h3>Customer Risk (Paid vs Pending)</h3>
+        <canvas id="customerChart"></canvas>
+      </div>
+
+      <div class="card">
+        <h3>Transaction Amount Distribution</h3>
+        <canvas id="amountChart"></canvas>
+      </div>
+
     </div>
   </section>
 
+  <!-- INSIGHTS -->
   <section>
-    <h2>👥 Customer Risk Analysis</h2>
+    <h2>🔍 Key Insights</h2>
     <ul>
-      <li>Only 5 customers account for the entire revenue</li>
-      <li>2 customers fall under high / very high risk category</li>
-      <li>High-value invoices show longer payment delays</li>
+      <li>40% of total revenue is stuck in receivables</li>
+      <li>Sales generate 96% of revenue but face maximum delays</li>
+      <li>Only 5 customers → high concentration risk</li>
+      <li>Rental generators are heavily underutilized</li>
     </ul>
   </section>
 
+  <!-- RECOMMENDATIONS -->
   <section>
     <h2>💡 Recommendations</h2>
     <ul>
-      <li>Introduce tiered advance payment policy for sales</li>
+      <li>Introduce tiered advance payment policy for high-value sales</li>
       <li>Set customer-wise credit limits</li>
-      <li>Diversify customer base to reduce concentration risk</li>
+      <li>Diversify customer base</li>
       <li>Improve rental utilization using packages and promotions</li>
       <li>Use simple digital tracking for payments</li>
     </ul>
   </section>
 
-  <section class="links">
+  <!-- LINKS -->
+  <section>
     <h2>📁 Project Resources</h2>
-    <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project" target="_blank">GitHub Repository</a>
-    <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project/blob/main/reports/Proposal.pdf" target="_blank">Proposal Report</a>
-    <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project/blob/main/reports/Midterm_Report.pdf" target="_blank">Mid-Term Report</a>
-    <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project/blob/main/reports/Final_Report.pdf" target="_blank">Final Report</a>
-    <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project/blob/main/presentation/Presentation.pptx" target="_blank">Presentation (PPT)</a>
+    <div class="links">
+      <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project" target="_blank">GitHub</a>
+      <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project/blob/main/reports/Proposal.pdf" target="_blank">Proposal</a>
+      <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project/blob/main/reports/Midterm_Report.pdf" target="_blank">Mid-Term</a>
+      <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project/blob/main/reports/Final_Report.pdf" target="_blank">Final Report</a>
+      <a href="https://github.com/24F2000612/Payment-Analytics-Cash-Flow-Risk-Rental-Performance-Optimization-Primary-Data-Project/blob/main/presentation/Presentation.pptx" target="_blank">PPT</a>
+    </div>
   </section>
 
 </main>
 
 <footer>
-  © 2025 Udghosh Rao | BDM Capstone Project – IIT Madras
+  © 2025 Udghosh Rao | Data Science & Business Analytics Portfolio
 </footer>
+
+<!-- CHART JS CODE -->
+<script>
+  new Chart(paymentChart, {
+    type: 'pie',
+    data: {
+      labels: ['Paid (60%)', 'Pending (40%)'],
+      datasets: [{
+        data: [60, 40],
+        backgroundColor: ['#22c55e', '#ef4444']
+      }]
+    }
+  });
+
+  new Chart(serviceChart, {
+    type: 'bar',
+    data: {
+      labels: ['Sales', 'Rentals', 'Repairs'],
+      datasets: [{
+        label: 'Revenue Share (%)',
+        data: [96, 3.4, 0.6],
+        backgroundColor: '#2563eb'
+      }]
+    }
+  });
+
+  new Chart(customerChart, {
+    type: 'bar',
+    data: {
+      labels: ['Rahul', 'Vikram', 'Amit', 'Sunita', 'Anita'],
+      datasets: [
+        { label: 'Paid', data: [90, 90, 60, 40, 20], backgroundColor: '#22c55e' },
+        { label: 'Pending', data: [10, 10, 40, 60, 80], backgroundColor: '#ef4444' }
+      ]
+    }
+  });
+
+  new Chart(amountChart, {
+    type: 'bar',
+    data: {
+      labels: ['<10k', '10k–50k', '50k–2L', '>2L'],
+      datasets: [{
+        label: 'Avg Delay (Days)',
+        data: [1.8, 3.2, 5.4, 8.5],
+        backgroundColor: '#f97316'
+      }]
+    }
+  });
+</script>
 
 </body>
 </html>
